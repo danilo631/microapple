@@ -1,19 +1,23 @@
 <?php
-require_once '../models/ControleQualidadeModel.php';
+include '../../database/conexao.php';
+include '../../../public/includes/logger.php';
+include '../models/ControleQualidadeModel.php'; // atualize o caminho conforme sua estrutura
 
-class ControleQualidadeController {
-    private $controleQualidade;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_desenvolvimento   = $_POST['id_desenvolvimento'];
+    $teste_funcionalidade = $_POST['teste_funcionalidade'];
+    $teste_usabilidade    = $_POST['teste_usabilidade'];
 
-    public function __construct($db) {
-        $this->controleQualidade = new ControleQualidadeModel($db);
-    }
+    $sql = "INSERT INTO controle_qualidade_tecnologia (id_desenvolvimento, teste_funcionalidade, teste_usabilidade)
+            VALUES (?, ?, ?)";
 
-    public function listar() {
-        return $this->controleQualidade->listarTodos();
-    }
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id_desenvolvimento, $teste_funcionalidade, $teste_usabilidade]);
 
-    public function criar($id_desenvolvimento, $teste_funcionalidade, $teste_usabilidade) {
-        return $this->controleQualidade->criar($id_desenvolvimento, $teste_funcionalidade, $teste_usabilidade);
-    }
+    // Registra a operação no log
+    logAction("Controle de Qualidade: Cadastro realizado para desenvolvimento ID {$id_desenvolvimento}.");
+
+    header("Location: ../../frontend/pages/controle_qualidade.php?success=1");
+    exit;
 }
 ?>

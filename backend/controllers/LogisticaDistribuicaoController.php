@@ -1,19 +1,23 @@
 <?php
-require_once '../models/LogisticaDistribuicaoModel.php';
+include '../db/conexao.php';
+include '../../../public/includes/logger.php';// atualize o caminho conforme sua estrutura
+include '../models/LogisticaDistribuicaoModel.php';
 
-class LogisticaDistribuicaoController {
-    private $logistica;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_desenvolvimento = $_POST['id_desenvolvimento'];
+    $destino            = $_POST['destino'];
+    $metodo_envio       = $_POST['metodo_envio'];
 
-    public function __construct($db) {
-        $this->logistica = new LogisticaDistribuicaoModel($db);
-    }
+    $sql = "INSERT INTO logistica_distribuicao_tecnologia (id_desenvolvimento, destino, metodo_envio)
+            VALUES (?, ?, ?)";
+    
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id_desenvolvimento, $destino, $metodo_envio]);
 
-    public function listar() {
-        return $this->logistica->listarTodos();
-    }
+    // Registra a operação no log
+    logAction("Logística & Distribuição: Cadastro realizado para desenvolvimento ID {$id_desenvolvimento}, destino '{$destino}', método de envio '{$metodo_envio}'.");
 
-    public function criar($id_desenvolvimento, $destino, $metodo_envio) {
-        return $this->logistica->criar($id_desenvolvimento, $destino, $metodo_envio);
-    }
+    header("Location: ../../frontend/pages/logistica_distribuicao.php?success=1");
+    exit;
 }
 ?>

@@ -1,19 +1,23 @@
 <?php
-require_once '../models/DesenvolvimentoModel.php';
+include '../../database/conexao.php';
+include '../../../public/includes/logger.php'; // atualize o caminho conforme sua estrutura
+include '../models/DesenvolvimentoModel.php';
 
-class DesenvolvimentoController {
-    private $desenvolvimento;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_produto          = $_POST['id_produto'];
+    $tipo_movimentacao   = $_POST['tipo_movimentacao'];
+    $quantidade          = $_POST['quantidade'];
 
-    public function __construct($db) {
-        $this->desenvolvimento = new DesenvolvimentoModel($db);
-    }
+    $sql = "INSERT INTO movimentacoes_estoque (id_produto, tipo_movimentacao, quantidade)
+            VALUES (?, ?, ?)";
+    
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id_produto, $tipo_movimentacao, $quantidade]);
 
-    public function listar() {
-        return $this->desenvolvimento->listarTodos();
-    }
+    // Registra a movimentação
+    logAction("Movimentação de Estoque: {$tipo_movimentacao} do Produto ID {$id_produto} com quantidade {$quantidade}.");
 
-    public function criar($tipo, $versao, $equipe) {
-        return $this->desenvolvimento->criar($tipo, $versao, $equipe);
-    }
+    header("Location: ../../frontend/pages/movimentacoes_estoque.php?success=1");
+    exit;
 }
 ?>

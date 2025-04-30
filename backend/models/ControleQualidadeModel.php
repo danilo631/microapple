@@ -1,27 +1,20 @@
 <?php
-class ControleQualidadeModel {
-    private $conn;
-    private $table_name = "controle_qualidade_tecnologia";
+class ControleQualidade {
+    private $pdo;
 
-    public function __construct($db) {
-        $this->conn = $db;
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+
+    public function cadastrar($id_desenvolvimento, $teste_funcionalidade, $teste_usabilidade) {
+        $sql = "INSERT INTO controle_qualidade_tecnologia (id_desenvolvimento, teste_funcionalidade, teste_usabilidade)
+                VALUES (?, ?, ?)";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([$id_desenvolvimento, $teste_funcionalidade, $teste_usabilidade]);
     }
 
     public function listarTodos() {
-        $query = "SELECT * FROM " . $this->table_name;
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
-    }
-
-    public function criar($id_desenvolvimento, $teste_funcionalidade, $teste_usabilidade) {
-        $query = "INSERT INTO " . $this->table_name . " (id_desenvolvimento, teste_funcionalidade, teste_usabilidade)
-                  VALUES (:id_desenvolvimento, :teste_funcionalidade, :teste_usabilidade)";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":id_desenvolvimento", $id_desenvolvimento);
-        $stmt->bindParam(":teste_funcionalidade", $teste_funcionalidade);
-        $stmt->bindParam(":teste_usabilidade", $teste_usabilidade);
-        return $stmt->execute();
+        $sql = "SELECT * FROM controle_qualidade_tecnologia";
+        return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 }
-?>
