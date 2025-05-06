@@ -1,0 +1,17 @@
+/* Garante que o footer ficará fixado na parte inferior da tela */
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    z-index: 1000; /* Garante que o rodapé fique acima de outros conteúdos */
+}
+
+/* Se necessário, adicione um padding inferior para o conteúdo não ficar escondido atrás do footer */
+body {
+    padding-bottom: 60px; /* Ajuste conforme o tamanho do seu footer */
+}
