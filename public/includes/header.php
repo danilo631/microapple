@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="../css/estilo.css">
 </head>
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../../index.php">MicroApple</a>
+            <a class="navbar-brand" href="../pages/dashboard.php">
+            <img src="../images/MicroApple.png" alt="MicroApple" class="logo"> </a>
         </div>
     </nav>

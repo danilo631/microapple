@@ -4,4 +4,5 @@ return [
     'admin' => 'mnb098#',
     'joao'  => 'senha234',
     'maria' => 'abc@456',
+    'pedro' => 'senha789',
 ];

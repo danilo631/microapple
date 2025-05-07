@@ -18,9 +18,9 @@ include '../includes/header.php'; ?>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="../index.php">Início</a></li>
-        <li class="nav-item"><a class="nav-link" href="./produtos.php">Produtos</a></li>
-        <li class="nav-item"><a class="nav-link active" href="#">Desenvolvimento</a></li>
+        <li class="nav-item"><a class="nav-link" href="./dashboard.php">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="./controle_qualidade_tecnologia.php">Controle</a></li>
+        <li class="nav-item"><a class="nav-link active" href="./logistica_distribuicao_tecnologia.php">Logistica</a></li>
       </ul>
     </div>
   </div>
